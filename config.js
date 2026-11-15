@@ -3,7 +3,7 @@
    2) MODE: "iframe" = เปิดระบบเต็มจอในแอปนี้ (ต้องใช้ระบบ v2.1 ขึ้นไป)
             "redirect" = ส่งไปหน้า Apps Script ตรง ๆ (ใช้เมื่อ iframe ไม่ขึ้น/ต้องล็อกอิน Google บน iPhone) */
 window.APP_CONFIG = {
-  APPS_SCRIPT_URL: "",
+  APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbzKvYvGlFckj6q3bvSHmTdVDTMHEB7yCy8Tdz5MMPo9WELH7AVlcIbodb6q1ga3nmzK3A/exec",
   APP_NAME: "Supplier Payment",
   MODE: "iframe"
 };
