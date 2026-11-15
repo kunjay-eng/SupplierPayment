@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ติดตั้ง Supplier Payment</title>
+<meta name="theme-color" content="#14213D">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Supplier Pay">
+<style>
+:root{--navy:#14213D;--em:#0F9D6B;--emb:#E3F6EE;--am:#E8A317;--amb:#FFF4DA;--co:#E4572E;--cob:#FDE9E3;--ln:#DDE2E8;--tx:#1B2430;--bg:#F8F9FA}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Noto Sans Thai",sans-serif;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+header{background:var(--navy);color:#fff;text-align:center;padding:28px 16px 22px}
+header img{width:96px;height:96px;border-radius:22px;box-shadow:0 6px 18px #0006}
+h1{font-size:21px;margin:12px 0 2px}header p{margin:0;opacity:.8;font-size:14px}
+main{max-width:520px;margin:0 auto;padding:16px}
+.btn{display:block;width:100%;border:0;border-radius:12px;padding:14px;font:inherit;font-weight:700;font-size:16px;color:#fff;background:var(--em);text-align:center;text-decoration:none;margin:10px 0}
+.btn.alt{background:#fff;color:var(--navy);border:2px solid var(--navy)}
+.btn[hidden]{display:none}
+.box{background:#fff;border:1px solid var(--ln);border-radius:12px;padding:12px 14px;margin:12px 0}
+.box h2{font-size:15px;margin:0 0 6px}
+.box.on{border-color:var(--em);box-shadow:0 0 0 2px var(--emb)}
+ol{margin:6px 0 0;padding-left:20px;line-height:1.7;font-size:14px}
+.warn{background:var(--cob);border-left:5px solid var(--co);border-radius:8px;padding:10px 12px;font-size:13.5px;margin:12px 0}
+.ok{background:var(--emb);border-left:5px solid var(--em);border-radius:8px;padding:10px 12px;font-size:13.5px;margin:12px 0}
+small{color:#5B6B7F}
+kbd{background:#eef1f5;border:1px solid var(--ln);border-radius:5px;padding:0 6px;font:inherit;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <img src="icons/icon-512.png" alt="ไอคอน">
+  <h1>Supplier Payment</h1>
+  <p>ติดตั้งเป็นไอคอนบนหน้าจอหลักมือถือ</p>
+</header>
+<main>
+  <div id="cfg" class="warn" hidden>⚠️ ยังไม่ได้ตั้งค่าลิงก์ระบบ — เปิดไฟล์ <b>config.js</b> ใน GitHub แล้วใส่ <b>APPS_SCRIPT_URL</b> ก่อน</div>
+  <div id="done" class="ok" hidden>✅ ติดตั้งแล้ว — เปิดจากไอคอนบนหน้าจอหลักได้เลย</div>
+
+  <button class="btn" id="inst" hidden>📲 ติดตั้งลงหน้าจอหลัก</button>
+  <a class="btn alt" id="open" href="app.html">▶ เปิดระบบ (ไม่ติดตั้ง)</a>
+
+  <div class="box" id="b-ios">
+    <h2>🍎 iPhone / iPad (Safari)</h2>
+    <ol>
+      <li>เปิดหน้านี้ด้วย <b>Safari</b> (ไม่ใช่แอปในไลน์/เฟซบุ๊ก)</li>
+      <li>แตะปุ่ม <b>แชร์</b> <kbd>⬆︎</kbd> ที่แถบล่าง</li>
+      <li>เลื่อนลง เลือก <b>เพิ่มไปยังหน้าจอโฮม</b></li>
+      <li>แตะ <b>เพิ่ม</b> — ไอคอนจะขึ้นบนหน้าจอหลัก</li>
+    </ol>
+  </div>
+  <div class="box" id="b-and">
+    <h2>🤖 Android (Chrome)</h2>
+    <ol>
+      <li>แตะปุ่ม <b>ติดตั้งลงหน้าจอหลัก</b> ด้านบน (ถ้าไม่ขึ้นปุ่ม ให้ทำข้อ 2)</li>
+      <li>แตะเมนู <kbd>⋮</kbd> มุมขวาบน → <b>ติดตั้งแอป</b> หรือ <b>เพิ่มไปยังหน้าจอหลัก</b></li>
+      <li>ยืนยัน <b>ติดตั้ง</b></li>
+    </ol>
+  </div>
+  <div class="box" id="b-pc">
+    <h2>💻 คอมพิวเตอร์</h2>
+    <ol><li>กดไอคอนติดตั้งที่ท้ายช่องที่อยู่เว็บใน Chrome/Edge หรือส่งลิงก์หน้านี้ไปเปิดบนมือถือ</li></ol>
+  </div>
+  <div class="box"><small>ไอคอนนี้เปิดระบบเดิมของคุณ — ข้อมูลทั้งหมดยังอยู่ใน Google Sheets ของคุณ ไม่ผ่านเซิร์ฟเวอร์ GitHub · ถ้าหน้าระบบไม่ขึ้นในแอป ให้ตั้ง <b>MODE</b> เป็น <b>"redirect"</b> ใน config.js</small></div>
+</main>
+<script src="config.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var C = window.APP_CONFIG || {}, ua = navigator.userAgent || '';
+  var standalone = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+  if (standalone) { location.replace('app.html'); return; }
+  if (!C.APPS_SCRIPT_URL) $('cfg').hidden = false;
+
+  var ios = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var and = /Android/.test(ua);
+  $('b-ios').classList.toggle('on', ios); $('b-and').classList.toggle('on', and);
+  if (ios) { $('b-and').style.display = 'none'; $('b-pc').style.display = 'none'; }
+  else if (and) { $('b-ios').style.display = 'none'; $('b-pc').style.display = 'none'; }
+
+  var ev = null;
+  addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); ev = e; $('inst').hidden = false; });
+  $('inst').onclick = function () {
+    if (!ev) return;
+    ev.prompt();
+    ev.userChoice.then(function (r) { ev = null; if (r.outcome === 'accepted') { $('inst').hidden = true; $('done').hidden = false; } });
+  };
+  addEventListener('appinstalled', function () { $('inst').hidden = true; $('done').hidden = false; });
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});
+})();
+</script>
+</body>
+</html>
